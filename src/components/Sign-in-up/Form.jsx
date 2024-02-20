@@ -2,13 +2,30 @@ import React, { useState } from 'react'
 import s from './FormStyle.module.sass'
 
 const Form = () => {
-    const [optionActive, setOptionActive] = useState(false)
+    const [optionLoginActive, setOptionLoginActive] = useState(false)
+    const [optionRegistrationActive, setOptionRegistrationActive] = useState(false)
     return (
         <div className={s.form}>
             <div className={s.wrapper}>
                 <div className={s.options}>
-                    <div className={s.optionLogin}>SIGN-IN</div>
-                    <button className={s.optionRegistration}>SIGN-UP</button>
+                    <div
+                        className={optionLoginActive ? s.optionActive : s.optionLogin}
+                        onClick={() => {
+                            setOptionRegistrationActive(false)
+                            setOptionLoginActive(!optionLoginActive)
+                        }}
+                    >
+                        SIGN-IN
+                    </div>
+                    <div
+                        className={optionRegistrationActive ? s.optionActive : s.optionRegistration}
+                        onClick={() => {
+                            setOptionLoginActive(false)
+                            setOptionRegistrationActive(!optionRegistrationActive)
+                        }}
+                    >
+                        SIGN-UP
+                    </div>
                 </div>
                 <div className={s.inputBlock}>
                     <input
