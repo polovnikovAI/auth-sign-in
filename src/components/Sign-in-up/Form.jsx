@@ -1,45 +1,52 @@
 import React, { useState } from 'react'
 import s from './FormStyle.module.sass'
+import eyeIcon from '../../hide-passwd.png'
+import CustomInput from '../UI/CustomInput'
 
 const Form = () => {
-    const [optionLoginActive, setOptionLoginActive] = useState(false)
-    const [optionRegistrationActive, setOptionRegistrationActive] = useState(false)
+    const [optionActive, setOptionActive] = useState(false)
+    const [visiblePassword, setVisiblePassword] = useState(false)
     return (
         <div className={s.form}>
             <div className={s.wrapper}>
                 <div className={s.options}>
                     <div
-                        className={optionLoginActive ? s.optionActive : s.optionLogin}
+                        className={optionActive ? s.option : s.optionActive}
                         onClick={() => {
-                            setOptionRegistrationActive(false)
-                            setOptionLoginActive(!optionLoginActive)
+                            setOptionActive(false)
                         }}
                     >
                         SIGN-IN
                     </div>
                     <div
-                        className={optionRegistrationActive ? s.optionActive : s.optionRegistration}
+                        className={optionActive ? s.optionActive : s.option}
                         onClick={() => {
-                            setOptionLoginActive(false)
-                            setOptionRegistrationActive(!optionRegistrationActive)
+                            setOptionActive(true)
                         }}
                     >
                         SIGN-UP
                     </div>
                 </div>
                 <div className={s.inputBlock}>
-                    <input
+                    <CustomInput
                         type='text'
-                        className={s.input}
-                        placeholder='username'
+                        placeholder='Username'
                     />
-                    <input
-                        type='text'
-                        className={s.input}
-                        placeholder='password'
+                    <CustomInput
+                        type={visiblePassword ? 'text' : 'password'}
+                        placeholder='Password'
+                    />
+                    <img
+                        src={eyeIcon}
+                        alt='show'
+                        className={s.showPasswd}
+                        onClick={(e) => {
+                            setVisiblePassword(!visiblePassword)
+                        }}
                     />
                 </div>
                 <button>Зарегистрироваться</button>
+                <CustomInput placeholder='test' />
             </div>
         </div>
     )
