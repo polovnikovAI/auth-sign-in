@@ -40,13 +40,31 @@ const Form = () => {
                         src={eyeIcon}
                         alt='show'
                         className={s.showPasswd}
-                        onClick={(e) => {
+                        onClick={() => {
                             setVisiblePassword(!visiblePassword)
                         }}
                     />
                 </div>
-                <button>Зарегистрироваться</button>
-                <CustomInput placeholder='test' />
+                {optionActive ? (
+                    <div className={s.addInputBlock}>
+                        <CustomInput
+                            type={visiblePassword ? 'text' : 'password'}
+                            placeholder='Confirm password'
+                        />
+                        <CustomInput
+                            type='text'
+                            placeholder='Email@'
+                        />
+                    </div>
+                ) : (
+                    ''
+                )}
+                <button
+                    style={optionActive ? {} : { marginTop: '86px' }}
+                    className={s.btn_auth}
+                >
+                    {optionActive ? 'Зарегистрироваться' : 'Войти'}
+                </button>
             </div>
         </div>
     )

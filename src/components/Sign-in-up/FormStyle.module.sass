@@ -1,5 +1,5 @@
 .form
-    width: 280px
+    width: 300px
     height: 350px
     font-size: 24px
     display: flex
@@ -14,10 +14,28 @@
             .option
                 background: transparent
                 cursor: pointer
-                margin-right: 20px
+                margin-right: 10px
+                display: inline
+                position: relative
+                color: #000
+                text-decoration: none
+                margin-left: 10px
+                cursor: pointer
+                &::before
+                    content: ''
+                    position: absolute
+                    top: 100%
+                    left: 0
+                    width: 0
+                    height: 2px
+                    background: #0400ff
+                    transition: 0.4s
+                &:hover::before
+                    width: 100%
             .optionActive
                 color: #4d44f2
-                margin-right: 20px
+                margin-left: 10px
+                margin-right: 10px
                 cursor: pointer
         .inputBlock
             display: flex
@@ -28,8 +46,21 @@
                 height: 30px
                 position: relative
                 top: -48px
-                left: 200px
+                left: 190px
                 opacity: .4
                 &:hover
                     opacity: 1
-            
+        .addInputBlock
+            display: flex
+            flex-direction: column
+            margin-top: -30px
+        .btn_auth
+            width: 100%
+            font-size: 18px
+            font-weight: 700
+            padding: 8px 12px
+            border: 2px solid #ccc
+            border-radius: 6px
+            color: #000
+            &:active
+                scale: .96
