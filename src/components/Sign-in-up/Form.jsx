@@ -60,6 +60,7 @@ const Form = () => {
                     ''
                 )}
                 <button
+                    type='submit'
                     style={optionActive ? {} : { marginTop: '86px' }}
                     className={s.btn_auth}
                 >
@@ -71,22 +72,3 @@ const Form = () => {
 }
 
 export default Form
-
-// display: inline
-// position: relative
-// font-size: 16px
-// color: #000
-// text-decoration: none
-// margin-left: 20px
-// cursor: pointer
-// &::before
-//     content: ''
-//     position: absolute
-//     top: 100%
-//     left: 0
-//     width: 0
-//     height: 2px
-//     background: #0400ff
-//     transition: 0.4s
-// &:hover::before
-//     width: 100%
