@@ -29,21 +29,21 @@ const Form = () => {
     // })
 
     const logIn = () =>
-        fetch('http://localhost:8080/auth', {
+        fetch(`http://localhost:8080/auth`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
             },
-            body: {
-                username: 'admin',
-                password: 'password',
-            },
+            body: JSON.stringify(userDataLog),
         }).then((response) => console.log(response.json()))
 
     const userDataLog = {
         username: username,
         password: password,
-        email: email,
+        // email: email,
     }
 
     return (
