@@ -2,48 +2,35 @@ import React, { useState } from 'react'
 import s from './FormStyle.module.sass'
 import eyeIcon from '../../hide-passwd.png'
 import CustomInput from '../UI/CustomInput'
+import { logIn, registration, secureData } from '../requests/requests'
 
 const Form = () => {
     const [optionActive, setOptionActive] = useState(false)
     const [visiblePassword, setVisiblePassword] = useState(false)
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
+    // const [username, setUsername] = useState('')
+    // const [password, setPassword] = useState('')
+    // const [confirmPassword, setConfirmPassword] = useState('')
+    // const [email, setEmail] = useState('')
 
-    // fetch('', {
-    //     method: 'POST',
+    // const userDataLog = {
+    //     username: username,
+    //     password: password,
+    //     confirmPassword: confirmPassword,
+    //     email: email,
+    // }
+    
+// нашел как не создавать много состояний useEffect, а справиться 1 и создать функцию для изменения
+    const [userDataLog, setUserDataLog] =useState({
+        username: '',
+        password: '',
+        confirmPassword: '',
+        email: '',
+    })
 
-    //     headers: {
-    //         'Content-Type': 'application/json;charset=utf-8',
-    //     },
-
-    //     body: {
-    //         username: '',
-    //         passwd: '',
-    //         email: '',
-    //     },
-
-    // }).then((response) => {
-    //     response.status === 200 ?
-    // })
-
-    const logIn = () =>
-        fetch(`http://localhost:8080/auth`, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            body: JSON.stringify(userDataLog),
-        }).then((response) => console.log(response.json()))
-
-    const userDataLog = {
-        username: username,
-        password: password,
-        // email: email,
+    const userDataLogChanger = (e) => {
+        const {name , value} = e.target
+        setUserDataLog({...userDataLog , [name]:value})
     }
 
     return (
@@ -71,12 +58,14 @@ const Form = () => {
                     <CustomInput
                         type='text'
                         placeholder='Username'
-                        onChange={(e) => setUsername(e.target.value)}
+                        name = 'username'
+                        onChange={(e) => userDataLogChanger(e)}
                     />
                     <CustomInput
                         type={visiblePassword ? 'text' : 'password'}
                         placeholder='Password'
-                        onChange={(e) => setPassword(e.target.value)}
+                        name = 'password'
+                        onChange={(e) => userDataLogChanger(e)}
                     />
                     <img
                         src={eyeIcon}
@@ -92,11 +81,14 @@ const Form = () => {
                         <CustomInput
                             type={visiblePassword ? 'text' : 'password'}
                             placeholder='Confirm password'
+                            onChange ={(e) => userDataLogChanger(e)}
+                            name = 'confirmPassword'
                         />
                         <CustomInput
                             type='text'
                             placeholder='Email@'
-                            onChange={(e) => setEmail(e.target.value)}
+                            name = 'email'
+                            onChange={(e) => userDataLogChanger(e)}
                         />
                     </div>
                 ) : (
@@ -106,10 +98,16 @@ const Form = () => {
                     type='submit'
                     style={optionActive ? {} : { marginTop: '86px' }}
                     className={s.btn_auth}
-                    onClick={logIn}
+                    onClick={(optionActive) ? (() => registration(userDataLog)) : 
+                        ((userDataLog.username === '') ? console.log('поле username не может быь пустым')
+                            : () => logIn(userDataLog)) }
                 >
                     {optionActive ? 'Зарегистрироваться' : 'Войти'}
                 </button>
+
+                {/* ниже строка для теста запросов */}
+                {/* <button onClick={() => {console.log(localStorage); secureData(); localStorage.clear()}}>12312312312313</button> */}
+            
             </div>
         </div>
     )
